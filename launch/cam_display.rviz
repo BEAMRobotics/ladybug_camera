@@ -1,0 +1,124 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 99
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Image1
+        - /Image2
+      Splitter Ratio: 0.5
+    Tree Height: 727
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.588679016
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: Image
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz/Image
+      Enabled: false
+      Image Topic: /ladybug/camera0/image_color_throttle
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: false
+    - Class: rviz/Image
+      Enabled: false
+      Image Topic: /ladybug/camera2/image_color
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: compressed
+      Unreliable: false
+      Value: false
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: ladybug
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Topic: /initialpose
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 11.2258739
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.0599999987
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: -4.51869822
+        Y: -1.09693158
+        Z: 2.41046619
+      Focal Shape Fixed Size: false
+      Focal Shape Size: 0.0500000007
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.00999999978
+      Pitch: 0.10979832
+      Target Frame: base_link
+      Value: Orbit (rviz)
+      Yaw: 0.220895872
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1056
+  Hide Left Dock: false
+  Hide Right Dock: false
+  Image:
+    collapsed: false
+  QMainWindow State: 000000ff00000000fd0000000400000000000003260000037bfc0200000011fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006100fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc000000280000037b000000d700fffffffa000000010100000002fb0000000a0049006d0061006700650000000000ffffffff0000000000000000fb000000100044006900730070006c0061007900730100000000000001be0000016a00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d006500720061000000022e000000be0000000000000000fb0000000a0049006d0061006700650100000206000000cd0000000000000000fb0000000a0049006d00610067006501000002d9000000c90000000000000000fb0000000a0049006d00610067006501000002f3000000ca0000000000000000fb0000000a0049006d00610067006501000002f3000000ca0000000000000000fb0000000a0049006d00610067006501000002510000009c0000000000000000fb0000000a0049006d00610067006501000002f3000000ca0000000000000000fb0000000a0049006d00610067006500000002050000019e0000001600fffffffb0000000a0049006d00610067006502000002be000000cc000004920000031e00000001000001590000037bfc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007301000000280000037b000000ad00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b20000000000000000000000020000073f00000207fc0100000005fb0000001a0069006d006100670065005f007200610077002f0072006100770000000000000003f90000000000000000fb000000280069006d006100670065005f007200610077002f0063006f006d007000720065007300730065006400000000000000073f0000000000000000fb0000000a0049006d00610067006501000003be0000019e0000000000000000fb0000000a0049006d0061006700650100000562000001dd0000000000000000fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000073f00000059fc0100000002fc000000000000073f0000030000fffffffa000000010200000002fb0000000a0049006d0061006700650000000000ffffffff0000000000000000fb0000000800540069006d006501000003c30000003f0000003b00fffffffb0000000800540069006d00650100000000000004500000000000000000000002b40000037b00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1855
+  X: 65
+  Y: 24

@@ -1,0 +1,18 @@
+<launch>
+
+
+  <include file="$(find receive_xsens)/receive_xsens.launch">
+  </include>
+
+  <node pkg="roben_relay" type="roben_relay_node" name="roben_relay_node" output="screen">
+  </node>
+
+  <node pkg="rosserial_python" type="serial_node.py" name="rosserial_node" output="screen">
+    <param name="baud" value="57600" />
+    <param name="port" value="/dev/ttyACM0" />
+  </node>
+
+
+
+
+</launch>

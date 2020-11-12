@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<launch>
+
+
+  <node pkg="rovio" type="rovio_node" name="rovio" output="screen">
+
+    <param name="filter_config" value="$(find ladybug_camera)/calibrations/intrinsics/cam4/cam_imu/grid/rovio.info"/>
+    <param name="camera0_config" value="$(find ladybug_camera)/calibrations/intrinsics/cam4/cam_imu/grid/rovio_cam4.yaml"/>
+    <param name="camera1_config" value="$(find ladybug_camera)/calibrations/intrinsics/cam3/cam_imu/grid/rovio_cam3.yaml"/>
+
+    <param name="cam0_topic_name" value="/ladybug/camera4/rectified/cropped/image_mono"/>
+    <param name="cam1_topic_name" value="/ladybug/camera3/rectified/cropped/image_mono"/>
+
+    <param name="imu_topic_name" value="/imu/data"/>
+
+<!--    <remap from="/cam0/image_raw" to="/ladybug/camera4/rectified/cropped/image_mono" />-->
+    <remap from="/cam1/image_raw" to="/ladybug/camera3/rectified/cropped/image_mono" />
+
+    <remap from="/imu0" to="/imu/data" />
+  </node>
+
+
+
+</launch>

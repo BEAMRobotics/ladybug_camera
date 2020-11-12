@@ -1,0 +1,9 @@
+cam0:
+  cam_overlaps: []
+  camera_model: pinhole
+  distortion_coeffs: [0.006266380926649442, -0.0023209695383531147, 0.00029239145295847186,
+    -0.00697859816685052]
+  distortion_model: radtan
+  intrinsics: [443.6405134026975, 442.91855683817255, 1039.687257241517, 1217.970993159992]
+  resolution: [2048, 2464]
+  rostopic: /ladybug/camera4/rectified/image_mono

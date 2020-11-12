@@ -1,0 +1,39 @@
+<launch>
+
+  <arg name="manager" default="ladybug_nodelet_manager" />
+  <arg name="cam_id" default="0" />
+
+  <!-- i.e., "/rectified" -->
+  <arg name="camera_ns_postfix" default="" />
+
+  <!-- Topic input -->
+  <arg name="topic_in" default="image_color"/>
+
+  <!-- Gets appended to node name after ladybug_camID -->
+  <arg name="node_name_postfix" default="_resizer"/>
+
+  <!-- Don't change this -->
+  <arg name="camera_ns" default="$(eval str('ladybug/camera') + str(arg('cam_id')) + arg('camera_ns_postfix'))"/>
+
+
+  <arg name="scale_height" default="0.5" />
+  <arg name="scale_width" default="0.5" />
+
+
+  <!-- Resize nodelet -->
+  <node pkg="nodelet" type="nodelet" name="ladybug_cam$(arg cam_id)$(arg node_name_postfix)"
+        args="load image_proc/resize $(arg manager)"
+        output="screen">
+          <remap from="image" to="$(arg camera_ns)/$(arg topic_in)" />
+          <remap from="~image" to="$(arg camera_ns)/resized/$(arg topic_in)"/>
+  </node>
+
+  <!-- dynamic reconfigure for resize -->
+  <node pkg="dynamic_reconfigure" type="dynparam" name="ladybug_cam$(arg cam_id)$(arg node_name_postfix)_reconfigure"
+        args="set ladybug_cam$(arg cam_id)$(arg node_name_postfix) &quot;{'scale_height':'$(arg scale_height)', 'scale_width':'$(arg scale_width)'}&quot;"
+        respawn="false">
+  </node>
+
+
+</launch>
+

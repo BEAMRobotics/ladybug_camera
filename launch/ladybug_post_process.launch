@@ -1,0 +1,53 @@
+<launch>
+
+  <!--
+    Launches the image_proc/debayer nodelet in the camera_prefix namespace.
+    Automatically debayers the image_raw topic to produce image_mono/image_color
+  -->
+  <arg name="manager" default="ladybug_nodelet_manager" />
+  <arg name="process_all" default="true" />
+  <arg name="cam_id" default="0" />
+  <arg name="camera_prefix" default="ladybug/camera" />
+  <arg name="cam_ns" default="$(eval arg('camera_prefix') + str(arg('cam_id')))"/>
+
+
+  <include file="$(find ladybug_camera)/launch/ladybug_driver.launch" if="$(eval arg('cam_id') == 0)">
+  </include>
+
+  <!-- ///////////////////////////////////// -->
+  <!-- Image Processing / Debayer Nodelet -->
+  <!-- ///////////////////////////////////// -->
+  <node pkg="nodelet" type="nodelet" name="ladybug_cam$(arg cam_id)_debayer"
+        args="load image_proc/debayer $(arg manager)">
+          <remap from="image_raw" to="$(arg cam_ns)/image_raw" />
+          <remap from="image_mono" to="$(arg cam_ns)/image_mono" />
+          <remap from="image_color" to="$(arg cam_ns)/image_color" />
+  </node>
+
+  <!-- ///////////////////////////////////// -->
+  <!-- Rectifier Nodelet -->
+  <!-- ///////////////////////////////////// -->
+  <arg name="camera_ns_postfix" default="/rectified" />
+  <!-- Gets appended to node name after ladybug_camID -->
+  <arg name="node_name_postfix" default="_rectifier"/>
+  <!-- Don't change this -->
+  <arg name="camera_ns" default="$(eval str('ladybug/camera') + str(arg('cam_id')) + arg('camera_ns_postfix'))"/>
+  <node pkg="nodelet" type="nodelet" name="ladybug_cam$(arg cam_id)$(arg node_name_postfix)"
+        args="load ladybug_camera/LadybugRectifierNodelet $(arg manager)"
+        output="screen">
+    <param name="cam_id" value="$(arg cam_id)" />
+  </node>
+
+  <!--recursively include this file for every camera if all is enabled-->
+  <group if="$(arg process_all)">
+    <include file="$(find ladybug_camera)/launch/ladybug_post_process.launch" if="$(eval arg('cam_id') - 1 != 4)">
+      <arg name="cam_id" value="$(eval arg('cam_id') + 1)"/>
+    </include>
+  </group>
+
+  <!-- recursively start new node -->
+<!--  <include file="$(find ladybug_camera)/launch/ladybug_throttle_rectify.launch" if="$(eval arg('cam_number') - 1 != 4)">-->
+<!--    <arg name="cam_number" value="$(eval arg('cam_number') + 1)"/>-->
+<!--  </include>-->
+
+</launch>

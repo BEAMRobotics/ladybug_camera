@@ -1,0 +1,21 @@
+Calibration results 
+====================
+Camera-system parameters:
+	cam0 (/ladybug/camera4/rectified/image_mono):
+	 type: <class 'aslam_cv.libaslam_cv_python.DistortedPinholeCameraGeometry'>
+	 distortion: [ 0.00741644 -0.00073632 -0.00117361 -0.00818244] +- [ 0.00175831  0.0008793   0.00059843  0.00060721]
+	 projection: [  446.39182316   446.41848814  1036.90373627  1216.78165852] +- [ 0.94796087  0.91535369  0.98119564  0.92705071]
+	 reprojection error: [-0.000036, -0.000021] +- [0.409663, 0.363491]
+
+
+
+Target configuration
+====================
+
+  Type: checkerboard
+  Rows
+    Count: 7
+    Distance: 0.06 [m]
+  Cols
+    Count: 6
+    Distance: 0.06 [m]

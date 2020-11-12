@@ -1,0 +1,30 @@
+<launch>
+
+  <!--
+    Launches the image_proc/debayer nodelet in the camera_prefix namespace.
+    Automatically debayers the image_raw topic to produce image_mono/image_color
+  -->
+
+  <arg name="manager" default="ladybug_nodelet_manager" />
+  <arg name="process_all" default="true" />
+  <arg name="cam_id" default="0" />
+  <arg name="camera_prefix" default="ladybug/camera" />
+  <arg name="cam_ns" default="$(eval arg('camera_prefix') + str(arg('cam_number')))"/>
+
+  <!--image_proc/debayer nodelet -->
+  <node pkg="nodelet" type="nodelet" name="ladybug_cam$(arg cam_id)_debayer"
+        args="load image_proc/debayer $(arg manager)">
+          <remap from="image_raw" to="$(arg cam_ns)/image_raw" />
+          <remap from="image_mono" to="$(arg cam_ns)/image_mono" />
+          <remap from="image_color" to="$(arg cam_ns)/image_color" />
+  </node>
+
+  <!--recursively include this file for every camera if all is enabled-->
+  <group if="$(arg process_all)">
+    <include file="ladybug_process.launch" if="($(eval arg('cam_number') - 1 != 4))">
+      <arg name="cam_id" value="$(eval arg('cam_number') + 1)"/>
+    </include>
+  </group>
+
+
+</launch>

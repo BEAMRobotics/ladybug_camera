@@ -1,0 +1,32 @@
+<launch>
+
+  <arg name="manager" value="ladybug_nodelet_manager" />
+  <arg name="cam_number" default="0" />
+  <arg name="camera_prefix" value="ladybug/camera" />
+  <arg name="camera_prefix_throttled" value="ladybug/throttled/camera" />
+
+  <arg name="cam_string" value="$(eval arg('camera_prefix') + str(arg('cam_number')))"/>
+  <arg name="cam_string_throttle" value="$(eval arg('camera_prefix_throttled') + str(arg('cam_number')))"/>
+
+  <arg name="throttle_rate" default="5" />
+
+  <node pkg="nodelet" type="nodelet" name="ladybug_throttle_$(arg cam_number)_rect_raw"
+        args="load ladybug_camera/NodeletThrottleImage $(arg manager)"
+        output="screen">
+    <remap from="topic_in" to="$(arg cam_string)/image_color/rectified" />
+    <remap from="topic_out" to="$(arg cam_string_throttle)/image_color/rectified"/>
+  </node>
+
+  <node pkg="dynamic_reconfigure" type="dynparam" name="ladybug_throttle_$(arg cam_number)_rect_raw_reconfigure"
+        args="set ladybug_throttle_$(arg cam_number)_rect_raw update_rate $(arg throttle_rate)"
+        respawn="false">
+  </node>
+
+  <!-- recursively start new node -->
+  <include file="$(find ladybug_camera)/launch/ladybug_throttle_rectify.launch" if="$(eval arg('cam_number') - 1 != 4)">
+    <arg name="cam_number" value="$(eval arg('cam_number') + 1)"/>
+  </include>
+
+
+
+</launch>

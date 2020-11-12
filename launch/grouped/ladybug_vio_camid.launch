@@ -1,0 +1,35 @@
+<launch>
+
+  <arg name="cam_id" default="3" />
+
+  <include file="$(find ladybug_camera)/launch/single/ladybug_process_camid.launch">
+    <arg name="cam_id" value="$(arg cam_id)" />
+  </include>
+
+  <include file="$(find ladybug_camera)/launch/single/ladybug_rectify_camid.launch">
+    <arg name="cam_id" value="$(arg cam_id)" />
+  </include>
+
+  <include file="$(find ladybug_camera)/launch/single/ladybug_process_camid.launch">
+    <arg name="cam_id" value="$(arg cam_id)"/>
+    <arg name="camera_ns_postfix" value="/rectified" />
+    <arg name="node_name_postfix" default="_rectified_debayerer"/>
+    <arg name="image_raw_in" value="image_color" />
+    <arg name="image_color_out" value="image_recolored" />
+  </include>
+
+  <include file="$(find ladybug_camera)/launch/single/ladybug_crop_camid.launch">
+    <arg name="cam_id" value="$(arg cam_id)" />
+    <arg name="node_name_postfix" default="_rectified_cropper"/>
+  </include>
+
+  <include file="$(find ladybug_camera)/launch/single/ladybug_process_camid.launch">
+    <arg name="cam_id" value="$(arg cam_id)"/>
+    <arg name="camera_ns_postfix" value="/rectified/cropped" />
+    <arg name="node_name_postfix" default="_rectified_cropped_debayerer"/>
+    <arg name="image_raw_in" value="image_color" />
+    <arg name="image_color_out" value="image_recolored" />
+  </include>
+
+
+</launch>

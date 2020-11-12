@@ -1,0 +1,70 @@
+<launch>
+
+  <arg name="manager" default="ladybug_nodelet_manager"/>
+  <arg name="cam_id" default="3" />
+
+  <param name="/ladybug/intrinsics3" value="/home/steve/dev_ws/src/ladybug_camera/calibrations/rovio/rovio_cam3.yaml" />
+
+
+  <!--rectifier nodelet-->
+  <node pkg="nodelet" type="nodelet" name="ladybug_rectifier_nodelet3"
+        args="load ladybug_camera/LadybugRectifierNodelet $(arg ladybug_nodelet_manager)"
+        output="screen">
+          <param name="cam_id" value="$(arg cam_id)" />
+  </node>
+
+
+
+  <!--Debayer and publish monochrome topic-->
+  <node pkg="nodelet" type="nodelet" name="ladybug_rectify_debayer_3"
+        args="load image_proc/debayer ladybug_nodelet_manager">
+          <remap from="image_raw" to="/ladybug/camera3/image_color/rectified" />
+          <remap from="image_mono" to="/ladybug/camera3/image_mono/rectified" />
+          <remap from="image_color" to="/ladybug/camera3/image_color2/rectified" />
+  </node>
+
+
+
+  <!--image_proc/debayer nodelet to get monochrome images-->
+  <node pkg="nodelet" type="nodelet" name="ladybug_debayer_$(arg cam_number)"
+        args="load image_proc/debayer $(arg manager)">
+          <remap from="image_raw" to="/ladybug/camera3/image_color/rectified" />
+          <remap from="image_mono" to="/ladybug/camera3/image_mono/rectified" />
+          <remap from="image_color" to="/ladybug/camera3/image_color2/rectified" />
+  </node>
+
+  <!--
+    <node pkg="nodelet" type="nodelet" name="ladybug_rectifier_nodelet1"
+          args="load ladybug_camera/LadybugRectifierNodelet ladybug_nodelet_manager"
+          output="screen">
+      <param name="cam_id" type="int" value="1" />
+    </node>
+
+   <node pkg="nodelet" type="nodelet" name="ladybug_rectifier_nodelet2"
+          args="load ladybug_camera/LadybugRectifierNodelet ladybug_nodelet_manager"
+          output="screen">
+      <param name="cam_id" type="int" value="2" />
+    </node>
+  -->
+
+  <!--
+  <node pkg="nodelet" type="nodelet" name="ladybug_rectifier_nodelet3"
+        args="load ladybug_camera/LadybugRectifierNodelet ladybug_nodelet_manager"
+        output="screen">
+    <param name="cam_id" type="int" value="3" />
+  </node>
+
+  <node pkg="nodelet" type="nodelet" name="ladybug_rectifier_nodelet4"
+        args="load ladybug_camera/LadybugRectifierNodelet ladybug_nodelet_manager"
+        output="screen">
+    <param name="cam_id" type="int" value="4" />
+  </node>
+
+  <node pkg="nodelet" type="nodelet" name="ladybug_rectifier_nodelet5"
+        args="load ladybug_camera/LadybugRectifierNodelet ladybug_nodelet_manager"
+        output="screen">
+    <param name="cam_id" type="int" value="5" />
+  </node>
+-->
+
+</launch>

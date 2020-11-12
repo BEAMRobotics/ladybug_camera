@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <arg name="scale_height" default="0.5" />
+  <arg name="scale_width" default="0.5" />
+
+
+  <node pkg="nodelet" type="nodelet" name="ladybug_resize_nodelet"
+        args="load image_proc/resize ladybug_nodelet_manager"
+        output="screen">
+    <remap from="image" to="/ladybug/camera3/image_mono/rectified" />
+    <remap from="~image" to="/ladybug/camera3/image_mono/rectified/resized" />
+  </node>
+
+
+  <node pkg="dynamic_reconfigure" type="dynparam" name="ladybug_resize_reconfigure"
+        args="set ladybug_resize_nodelet &quot;{'scale_height':'$(arg scale_height)', 'scale_width':'$(arg scale_width)'}&quot;"
+        respawn="false">
+  </node>
+
+</launch>
+
+<!--  {'scale_height':'0.5', 'scale_width':'0.5'}"-->

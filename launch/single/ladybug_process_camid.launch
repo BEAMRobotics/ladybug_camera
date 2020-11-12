@@ -1,0 +1,31 @@
+<launch>
+
+  <!--
+    Launches the image_proc/debayer nodelet in the camera_prefix namespace.
+    Automatically debayers the image_raw topic to produce image_mono/image_color
+  -->
+  <arg name="manager" default="ladybug_nodelet_manager" />
+  <arg name="cam_id" default="0" />
+
+  <!-- i.e., "/rectified" -->
+  <arg name="camera_ns_postfix" default="" />
+
+  <!-- Gets appended to node name after ladybug_camID -->
+  <arg name="node_name_postfix" default="_debayerer"/>
+
+  <arg name="image_raw_in" default="image_raw" />
+  <arg name="image_color_out" default="image_color" />
+
+  <!-- Don't change this -->
+  <arg name="camera_ns" default="$(eval str('ladybug/camera') + str(arg('cam_id')) + arg('camera_ns_postfix'))"/>
+
+
+  <!--image_proc/debayer nodelet -->
+  <node pkg="nodelet" type="nodelet" name="ladybug_cam$(arg cam_id)$(arg node_name_postfix)"
+        args="load image_proc/debayer $(arg manager)">
+          <remap from="image_raw" to="$(arg camera_ns)/$(arg image_raw_in)" />
+          <remap from="image_mono" to="$(arg camera_ns)/image_mono" />
+          <remap from="image_color" to="$(arg camera_ns)/$(arg image_color_out)" />
+  </node>
+
+</launch>

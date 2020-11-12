@@ -1,0 +1,31 @@
+<library path="lib/libLadybugDriverNodelet">
+    <class name="ladybug_camera/LadybugDriverNodelet" type="ladybug_camera::LadybugDriverNodelet"
+           base_class_type="nodelet::Nodelet">
+        <description>This is the nodelet for the Point Grey Camera Driver.</description>
+    </class>
+</library>
+
+<library path="lib/libLadybugSeparatorNodelet">
+<class name="ladybug_camera/LadybugSeparatorNodelet" type="ladybug_camera::LadybugSeparatorNodelet"
+       base_class_type="nodelet::Nodelet">
+    <description>This is the nodelet for the Point Grey Camera Driver.</description>
+</class>
+</library>
+
+<library path="lib/libLadybugCombinerNodelet">
+<class name="ladybug_camera/LadybugCombinerNodelet" type="ladybug_camera::LadybugCombinerNodelet"
+       base_class_type="nodelet::Nodelet">
+    <description>This is the nodelet for the Point Grey Camera Driver.</description>
+</class>
+<class name="ladybug_camera/NodeletThrottleImage" type="ladybug_camera::NodeletThrottleImage"
+       base_class_type="nodelet::Nodelet">
+    <description>This is the nodelet for the Point Grey Camera Driver.</description>
+</class>
+</library>
+
+<library path="lib/libLadybugRectifierNodelet">
+<class name="ladybug_camera/LadybugRectifierNodelet" type="ladybug_camera::LadybugRectifierNodelet"
+       base_class_type="nodelet::Nodelet">
+    <description>This is the nodelet for the Point Grey Camera Driver.</description>
+</class>
+</library>

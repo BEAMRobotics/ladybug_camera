@@ -1,0 +1,20 @@
+Calibration results 
+====================
+Camera-system parameters:
+	cam0 (/ladybug/camera4/rectified/image_mono):
+	 type: <class 'aslam_cv.libaslam_cv_python.DistortedPinholeCameraGeometry'>
+	 distortion: [ 0.00626638 -0.00232097  0.00029239 -0.0069786 ] +- [ 0.00059624  0.00018175  0.00021459  0.00024371]
+	 projection: [  443.6405134    442.91855684  1039.68725724  1217.97099316] +- [ 0.62954217  0.57946309  0.42180083  0.38912834]
+	 reprojection error: [0.000000, 0.000000] +- [0.377370, 0.361400]
+
+
+
+Target configuration
+====================
+
+  Type: aprilgrid
+  Tags: 
+    Rows: 6
+    Cols: 6
+    Size: 0.06 [m]
+    Spacing 0.018 [m]

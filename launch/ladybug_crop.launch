@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <node pkg="nodelet" type="nodelet" name="ladybug_crop_nodelet2"
+        args="load image_proc/crop_decimate ladybug_nodelet_manager"
+        output="screen">
+    <remap from="camera/image_raw" to="/ladybug/camera3/image_color/rectified" />
+    <remap from="camera/camera_info" to="/ladybug/camera3/camera_info" />
+
+  </node>
+
+
+<!--  <node pkg="dynamic_reconfigure" type="dynparam" name="ladybug_resize_reconfigure"
+        args="set ladybug_resize_nodelet &quot;{'scale_height':'$(arg scale_height)', 'scale_width':'$(arg scale_width)'}&quot;"
+        respawn="false">
+  </node>-->
+
+</launch>

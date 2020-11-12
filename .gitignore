@@ -1,0 +1,9 @@
+cmake-build-*
+.idea
+bags/*
+!bags/.temp
+*.bag
+*.mat
+#calibrations/intrinsics/*
+#!calibrations/april_6x6_50x50cm.yaml
+maplab/maps/*

@@ -1,0 +1,40 @@
+<launch>
+
+  <arg name="manager" default="ladybug_nodelet_manager" />
+  <arg name="cam_id" default="3" />
+  <arg name="process_mono" default="true"/>
+
+  <!-- i.e., "/rectified" -->
+  <arg name="camera_ns_postfix" default="/rectified" />
+
+  <!-- Gets appended to node name after ladybug_camID -->
+  <arg name="node_name_postfix" default="_rectifier"/>
+
+  <!-- Don't change this -->
+  <arg name="camera_ns" default="$(eval str('ladybug/camera') + str(arg('cam_id')) + arg('camera_ns_postfix'))"/>
+
+  <!-- Global params -->
+<!--   <param name="ladybug/intrinsics/camera$(arg cam_id)" -->
+<!--          value="$(find ladybug_camera)/calibrations/intrinsics/cam$(arg cam_id)/cam$(arg cam_id)_rect.yaml" /> -->
+
+  <!--rectifier nodelet-->
+  <node pkg="nodelet" type="nodelet" name="ladybug_cam$(arg cam_id)$(arg node_name_postfix)"
+        args="load ladybug_camera/LadybugRectifierNodelet $(arg manager)"
+        output="screen">
+          <param name="cam_id" value="$(arg cam_id)" />
+  </node>
+
+<!--
+  &lt;!&ndash;run image_proc to get mono image&ndash;&gt;
+  <include file="$(find ladybug_camera)/launch/single/ladybug_process_camid.launch"
+           if="$(arg process_mono)">
+            <arg name="cam_id" value="$(arg cam_id)"/>
+            <arg name="camera_ns_postfix" value="$(arg camera_ns_postfix)" />
+            <arg name="node_name_postfix" value="_rectified_debayerer" />
+            <arg name="image_raw_in" value="image_color" />
+            <arg name="image_color_out" value="image_recolored" />
+  </include>
+-->
+
+
+</launch>

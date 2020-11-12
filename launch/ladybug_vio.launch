@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <node pkg="rovio" type="rovio_rosbag_loader" name="rovio" output="screen">
+<!--    <param name="filter_config" value="$(find ladybug_camera)/calibrations/rovio/rovio_rect.info"/>
+    <param name="camera0_config" value="$(find ladybug_camera)/calibrations/rovio/rovio_cam_rect_half.yaml"/>
+    <param name="rosbag_filename" value="$(find ladybug_camera)/bags/image_mono_resized.bag"/>
+    <param name="imu_topic_name" value="/imu/data"/>
+    <param name="cam0_topic_name" value="/ladybug/camera3/image_mono/rectified/resized"/>-->
+
+    <param name="rosbag_filename" value="/home/steve/2019-08-24-18-55-44.bag"/>
+    <param name="filter_config" value="$(find ladybug_camera)/calibrations/intrinsics/cam4/cam_imu/grid/rovio.info"/>
+    <param name="camera0_config" value="$(find ladybug_camera)/calibrations/intrinsics/cam4/cam_imu/grid/rovio_cam4.yaml"/>
+    <param name="camera1_config" value="$(find ladybug_camera)/calibrations/intrinsics/cam3/cam_imu/grid/rovio_cam3.yaml"/>
+
+    <param name="cam0_topic_name" value="/ladybug/camera4/rectified/cropped/image_mono"/>
+    <param name="cam1_topic_name" value="/ladybug/camera3/rectified/cropped/2image_mono"/>
+
+    <param name="imu_topic_name" value="/imu/data"/>
+
+<!--    <remap from="/cam0/image_raw" to="/ladybug/camera4/rectified/cropped/image_mono" />-->
+<!--    <remap from="/imu0" to="/imu/data" />-->
+  </node>
+</launch>

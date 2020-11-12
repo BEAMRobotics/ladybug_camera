@@ -1,0 +1,84 @@
+<launch>
+
+  <arg name="throttle" default="true" />
+  <arg name="throttle_hz" default="4" />
+  <arg name="manager" default="ladybug_nodelet_manager"/>
+
+  <!-- Global params for intrinsics -->
+  <param name="ladybug/intrinsics/camera0" value="$(find ladybug_camera)/calibrations/intrinsics/cam0/cam0.yaml" />
+  <param name="ladybug/intrinsics/camera1" value="$(find ladybug_camera)/calibrations/intrinsics/cam1/cam1.yaml" />
+  <param name="ladybug/intrinsics/camera2" value="$(find ladybug_camera)/calibrations/intrinsics/cam2/cam2.yaml" />
+  <param name="ladybug/intrinsics/camera3" value="$(find ladybug_camera)/calibrations/intrinsics/cam3/cam3.yaml" />
+  <param name="ladybug/intrinsics/camera4" value="$(find ladybug_camera)/calibrations/intrinsics/cam4/cam4.yaml" />
+  <param name="ladybug/intrinsics/camera5" value="$(find ladybug_camera)/calibrations/intrinsics/cam5/cam5.yaml" />
+
+
+  <!--Nodelet manager-->
+  <node pkg="nodelet" type="nodelet" name="ladybug_nodelet_manager"
+        args="manager" output="screen">
+  </node>
+
+  <!--Driver nodelet-->
+  <node pkg="nodelet" type="nodelet" name="ladybug_driver_nodelet"
+        args="load ladybug_camera/LadybugDriverNodelet ladybug_nodelet_manager"
+        output="screen">
+          <param name="camera_mode" value="compressed" /> <!-- raw/rectified/compressed -->
+          <param name="enable_debug_logging" value="true" />
+          <param name="topic" value="/ladybug/packet" />
+  </node>
+
+  <!--Separator nodelet-->
+  <node pkg="nodelet" type="nodelet" name="ladybug_separator_nodelet"
+        args="load ladybug_camera/LadybugSeparatorNodelet ladybug_nodelet_manager"
+        output="screen">
+  </node>
+
+  <!--Combiner nodelet-->
+  <node pkg="nodelet" type="nodelet" name="ladybug_combiner_nodelet"
+        args="load ladybug_camera/LadybugCombinerNodelet ladybug_nodelet_manager"
+        output="screen">
+  </node>
+
+
+
+
+<!--    <node pkg="image_proc" type="image_proc" name="ladybug_proc"
+          ns="ladybug/camera4"
+          output="screen">
+    </node>-->
+  <!--
+    <node pkg="image_view" type="image_view" name="ladybug_viewer" output="screen">
+      <remap from="/image" to="/ladybug/camera2/image_mono" />
+      <param name="autosize" value="false"/>
+      <param name="image_transport" value="compressed"/>
+      <param name="width" value="580"/>
+      <param name="height" value="700"/>
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="ladybug_viewer_nodelet"
+          args="load image_view/ImageNodelet ladybug_nodelet_manager"
+          output="screen">
+      <remap from="/image" to="/ladybug/camera2/image_mono" />
+    </node>
+
+    <node pkg="nodelet" type="nodelet" name="ladybug_throttle" args="load my_pkg/NodeletThrottleImage nodelet_manager" output="screen">
+      <remap from="topic_in"  to="camera/rgb/image_color"/>
+      <remap from="topic_out" to="camera/rgb/image_color_throttle"/>
+    </node>-->
+  <!--
+  <group if="$(eval arg('throttle') == 1)">
+    <node name="ladybug_cam0_throttler" type="throttle" pkg="topic_tools"
+          args="messages /ladybug/camera0/image_color $(arg throttle_hz) /ladybug/camera0/image_color_throttled" />
+    <node name="ladybug_cam1_throttler" type="throttle" pkg="topic_tools"
+          args="messages /ladybug/camera1/image_color $(arg throttle_hz) /ladybug/camera1/image_color_throttled" />
+    <node name="ladybug_cam2_throttler" type="throttle" pkg="topic_tools"
+          args="messages /ladybug/camera2/image_color $(arg throttle_hz) /ladybug/camera2/image_color_throttled" />
+    <node name="ladybug_cam3_throttler" type="throttle" pkg="topic_tools"
+          args="messages /ladybug/camera3/image_color $(arg throttle_hz) /ladybug/camera3/image_color_throttled" />
+    <node name="ladybug_cam4_throttler" type="throttle" pkg="topic_tools"
+          args="messages /ladybug/camera4/image_color $(arg throttle_hz) /ladybug/camera4/image_color_throttled" />
+    <node name="ladybug_cam5_throttler" type="throttle" pkg="topic_tools"
+          args="messages /ladybug/camera5/image_color $(arg throttle_hz) /ladybug/camera5/image_color_throttled" />
+  </group>-->
+
+</launch>

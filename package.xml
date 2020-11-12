@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>ladybug_camera</name>
+    <version>1.0.0</version>
+    <description>Flir ladybug camera driver based on the Ladybug SDK.</description>
+    <maintainer email="sjphilli@uwaterloo.ca">Steve Phillips</maintainer>
+    <license>BSD</license>
+    <url type="website"></url>
+    <author>Steve Phillips</author>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>curl</build_depend>
+    <build_depend>dpkg</build_depend>
+
+    <depend>camera_info_manager</depend>
+    <depend>diagnostic_updater</depend>
+    <depend>dynamic_reconfigure</depend>
+    <depend>image_exposure_msgs</depend>
+    <depend>image_transport</depend>
+    <depend>ladybug_msgs</depend>
+    <depend>libusb-1.0-dev</depend>
+    <depend>nodelet</depend>
+    <depend>opencv3</depend>
+    <depend>roscpp</depend>
+    <depend>sensor_msgs</depend>
+    <depend>message_generation</depend>
+    <depend>nodelet_topic_tools</depend>
+    <depend>cv_bridge</depend>
+    <depend>message_runtime</depend>
+    <depend>rosbag</depend>
+
+    <export>
+        <nodelet plugin="${prefix}/nodelet_plugins.xml"/>
+    </export>
+</package>

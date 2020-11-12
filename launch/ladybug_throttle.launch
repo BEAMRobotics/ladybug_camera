@@ -1,0 +1,40 @@
+<launch>
+
+  <arg name="manager" value="ladybug_nodelet_manager" />
+  <arg name="cam_number" default="0" />
+  <arg name="camera_prefix" value="ladybug/camera" />
+  <arg name="camera_prefix_throttled" value="ladybug/throttled/camera" />
+
+  <arg name="cam_string" value="$(eval arg('camera_prefix') + str(arg('cam_number')))"/>
+  <arg name="cam_string_throttle" value="$(eval arg('camera_prefix_throttled') + str(arg('cam_number')))"/>
+
+  <arg name="throttle_rate" default="1" />
+
+  <node pkg="nodelet" type="nodelet" name="ladybug_throttle_$(arg cam_number)_raw"
+        args="load ladybug_camera/NodeletThrottleImage $(arg manager)"
+        output="screen">
+    <remap from="topic_in" to="$(arg cam_string)/image_raw" />
+    <remap from="topic_out" to="$(arg cam_string_throttle)/image_raw"/>
+  </node>
+
+  <node pkg="dynamic_reconfigure" type="dynparam" name="ladybug_throttle_$(arg cam_number)_raw_reconfigure"
+        args="set ladybug_throttle_$(arg cam_number)_raw update_rate $(arg throttle_rate)"
+        respawn="false">
+  </node>
+
+  <!-- Debayer and publish monochrome and color topics -->
+  <node pkg="nodelet" type="nodelet" name="ladybug_throttle_debayer_$(arg cam_number)"
+        args="load image_proc/debayer $(arg manager)">
+    <remap from="image_raw" to="$(arg cam_string_throttle)/image_raw" />
+    <remap from="image_mono" to="$(arg cam_string_throttle)/image_mono" />
+    <remap from="image_color" to="$(arg cam_string_throttle)/image_color" />
+  </node>
+
+  <!-- recursively start new node -->
+  <include file="$(find ladybug_camera)/launch/ladybug_throttle.launch" if="$(eval arg('cam_number') - 1 != 4)">
+    <arg name="cam_number" value="$(eval arg('cam_number') + 1)"/>
+  </include>
+
+
+
+</launch>
